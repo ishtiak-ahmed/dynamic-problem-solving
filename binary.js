@@ -155,7 +155,7 @@ const treeSum = (root) => {
   const queue = [root];
 
   while (queue.length) {
-    const current = queue.pop()
+    const current = queue.shift()
     sum += current.val;
     if (current.right !== null) queue.push(current.right)
     if (current.left !== null) queue.push(current.left)
@@ -197,6 +197,51 @@ const recursiveMin = (root) => {
   return Math.min(root.val, recursiveMin(root.left), recursiveMin(root.right))
 }
 
-console.log('Min value', treeMinValue(n5));
-console.log('Min value', recursiveTreeMinValue(n5));
-console.log('Min value', recursiveMin(n5));
+// console.log('Min value', treeMinValue(n5));
+// console.log('Min value', recursiveTreeMinValue(n5));
+// console.log('Min value', recursiveMin(n5));
+
+const p1 = new TreeNode1(5);
+p1.left = new TreeNode1(11);
+p1.right = new TreeNode1(12);
+p1.left.left = new TreeNode1(4);
+p1.left.right = new TreeNode1(5);
+p1.right.right = new TreeNode1(5);
+
+// const maxRootToLeaf = (root) => {
+//   if (root === null) return 0;
+
+//   const stack = [root];
+//   while (stack.length) {
+//     const current = stack.pop();
+//     if (current.right !== null) stack.push(current.right)
+//     if (current.left !== null) stack.push(current.left)
+//   }
+// }
+
+const maxPathSum = (root) => {
+  if (root === null) return -Infinity;
+  if (root.left === null && root.right === null) return root.val;
+  return root.val + Math.max(maxPathSum(root.left), maxPathSum(root.right))
+}
+
+// console.log('Leaf to root', maxRootToLeaf(p1));
+console.log('Leaf to root', maxPathSum(p1.left));
+/*
+          5
+        /   \
+      11     3
+    /  \    / \
+  4     2      2
+/ \    / \    / \
+
+  paths = []
+  root => 5
+  root.left = [[5, 11]]
+  5 [11, [4, 2]] [3, 2]
+  11, 4, 11, 2, 3, 2
+  [5,11,4], [5, 11, 2], [5, 3, 2],
+
+  [[4] [2]] => [4,11] [2, 11]
+  [[4,11], [2,11]], [[3,2]] =>[[4,11,5], [2,11,5]], [3,2]
+*/ 
