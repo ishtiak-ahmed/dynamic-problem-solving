@@ -9,6 +9,6 @@ function myPow(x: number, n: number): number {
   return x ** n;
 }
 
-const res = myPow(2.000, 5)
+const result = myPow(2.000, 5)
 
-console.log(res);
+console.log(result);
